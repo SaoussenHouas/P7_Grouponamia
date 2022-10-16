@@ -1,0 +1,30 @@
+// Logo animation
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: $primary-color; }
+  }
+
+// Loader diseapper  
+@keyframes dis {
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+// Component appear animation
+@keyframes appear{
+    0%{
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100%{
+        transform: translate(0px);
+        opacity: 1;
+    }
+ }

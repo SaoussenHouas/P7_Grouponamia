@@ -1,0 +1,148 @@
+body {
+    background: $background;
+    font-family: "Roboto", sans-serif;
+}
+
+//Flex 
+
+.flex {
+    display: flex;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.end {
+    justify-content: flex-end;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+
+// Homepage
+.mainContainer {
+    padding: 3.5em;
+    gap: 1rem;
+    @include mobile-only {
+        padding: 1.5em;
+    }
+    .filter {
+        color: $dark-grey;
+        justify-content: flex-end;
+    }
+}
+
+#mobileNav {
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    display: none;
+    @include mobile-only {
+        display: flex;
+    }
+    .addButton {
+        text-decoration: none;
+        background-color: $red;
+        color: $light;
+        width: 100%;
+        padding: 1rem;
+    }
+    button {
+        border: none;
+        color: $red;
+        background-color: $light;
+        width: 100%;
+        padding: 1rem;
+        cursor: pointer;
+    }
+}
+
+
+//AddPost 
+.addPost {
+    margin: 5em auto;
+    max-width: 50%;
+    background-color: $light;
+    width: fit-content;
+    padding: 2rem;
+    border-radius: 5px;
+    @include mobile-only {
+        max-width: 100%;
+        background-color: $background;
+    }
+    .postButton {
+        @include mobile-only {
+            justify-content: center;
+            margin: 2rem 0rem;
+        }
+        button {
+            background-color: $red;
+            border: none;
+            color: $light;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            width: fit-content;
+            &:hover {
+                opacity: 0.9;
+                cursor: pointer;
+            }
+            @include mobile-only {
+                border-radius: 0;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+        }
+    }
+    .postContent {
+        gap: 2rem;
+        margin-bottom: 0rem;
+        @include mobile-only {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+        }
+        .addImg {
+            background-color: $background;
+            border-radius: 5px;
+            padding: 2rem;
+            width: 65%;
+            @include mobile-only {
+                border: 1px solid $grey;
+            }
+            .postTitle {
+                width: 80%;
+                margin: 5rem 0rem;
+                h1 {
+                    font-size: 1rem;
+                    font-weight: 400;
+                }
+            }
+            span {
+                color: $dark-grey;
+                font-size: 13px;
+            }
+        }
+    }
+}
+
+.css-g9cew8-MuiInputBase-root-MuiInput-root:after {
+    border-color: transparent!important;
+}

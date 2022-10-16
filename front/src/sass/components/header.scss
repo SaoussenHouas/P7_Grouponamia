@@ -1,0 +1,42 @@
+.header {
+    background-color: $light;
+    padding: 1.5em 2em;
+    @include mobile-only {
+        padding: 1em 1em;
+    }
+    .logo {
+        width: 50%;
+        @include mobile-only {
+            width: 100%;
+        }
+    }
+    .nav {
+        gap: 2.5rem;
+        a {
+            text-decoration: none;
+            color: $dark-grey;
+        }
+        button {
+            border: none;
+            background-color: transparent;
+            color: $red;
+            cursor: pointer;
+        }
+    }
+}
+
+#headerMobile {
+    display: none;
+    @include mobile-only {
+        display: flex;
+    }
+}
+
+#header {
+    @include mobile-only {
+        display: none;
+    }
+}
+
+
+
