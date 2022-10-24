@@ -7,6 +7,12 @@ const jwt = require('jsonwebtoken')
       //Créer un post
 
   exports.createPost = async (req, res, next) => {
+    // Renforcer la Securité : Verification de l'Utilisateur connecté
+    const token = req.headers.authorization.split(" ")[0];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const usrId = decodedToken._id;
+    const userParam  = req.params.id;
+    if(userParam ==! usrId) return res.status(400).send('Utilisateur erroné');
 
 // Crée un objet avec req.body
     const postObject = JSON.parse(req.body.post)
@@ -31,13 +37,16 @@ const jwt = require('jsonwebtoken')
 
    // Récupérer tous les posts
    exports.getAllPost = (req, res, next) => {
+    // Renforcer la Securité : Verification de l'Utilisateur connecté
     const token = req.headers.authorization.split(" ")[0];
     const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const usrId = decodedToken._id;
+    const userParam  = req.params.id;
     console.log(usrId);
+
+    if(userParam ==! usrId) return res.status(400).send('Utilisateur erroné');
   
-    User.findOne({ _id: usrId }).then((connectedUser) => {
-      if (connectedUser.isAdmin === true) {
+    User.findOne({ _id: usrId }).then((connectedUser) => { 
         console.log(connectedUser.isAdmin);
   
         Post.find()
@@ -46,25 +55,20 @@ const jwt = require('jsonwebtoken')
             res.status(400).json({
               error,
             })
-          );
-      } else {
-        Post.find({ userId: usrId })
-  
-          // Return the post
-          .then((posts) => res.status(200).json(posts))
-          .catch((error) =>
-            res.status(400).json({
-              error,
-            })
-          );
-      }
+          ); 
     });
   };
 
     // Récupérer ONE POST
     
     exports.getOnePost = (req, res, next) => {
-
+    // Renforcer la Securité : Verification de l'Utilisateur connecté
+    const token = req.headers.authorization.split(" ")[0];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const usrId = decodedToken._id;
+    const userParam  = req.params.id;
+    if(userParam ==! usrId) return res.status(400).send('Utilisateur erroné');
+  
     // Trouver l'ID de publication que nous voulons dans la base de données
     Post.findOne({
         _id: req.params.id
@@ -77,10 +81,14 @@ const jwt = require('jsonwebtoken')
     }));
 };
 
-
-    // UPDATE A POST
-
+    // UPDATE A POST 
   exports.modifyPost = (req, res, next) => {
+    // Renforcer la Securité : Verification de l'Utilisateur connecté
+    const token = req.headers.authorization.split(" ")[0];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const usrId = decodedToken._id;
+    const userParam  = req.params.id;
+    if(userParam ==! usrId) return res.status(400).send('Utilisateur erroné');
 
     let postObject = {}
 
@@ -132,6 +140,8 @@ const jwt = require('jsonwebtoken')
  // Supprimer un post
 
   exports.deletePost = (req, res, next) => {
+    // Renforcer la Securité : Verification de l'Utilisateur connecté
+   // Renforcer la Securité : Un utilisateur peut liker qu'une seule fois le même post
 
     // Find the ID of the sauce we want to delete
     Post.findOne({
@@ -160,14 +170,19 @@ const jwt = require('jsonwebtoken')
 }
 
 
-// LIKE A POST
-                                  
+// LIKE A POST                                   
   exports.likePost = (req, res, next) => {
+    // Renforcer la Securité : Verification de l'Utilisateur connecté
+    const token = req.headers.authorization.split(" ")[0];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const userParam = decodedToken._id;
+    
+    let like = req.body.like;
+    let userId = req.body.userId;
+    let postId = req.params.id;
 
-    let like = req.body.like
-    let userId = req.body.userId
-    let postId = req.params.id
-  
+    if(userId ==! userParam) return res.status(400).send('Utilisateur erroné'); 
+   
     // Adding 1 like
     if (like === 1) { 
       Post.updateOne({
