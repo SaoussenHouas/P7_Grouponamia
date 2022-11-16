@@ -137,11 +137,14 @@ const jwt = require('jsonwebtoken')
 
 
 
- // Supprimer un post
-
+ // Supprimer un post 
   exports.deletePost = (req, res, next) => {
     // Renforcer la Securité : Verification de l'Utilisateur connecté
-   // Renforcer la Securité : Un utilisateur peut liker qu'une seule fois le même post
+    const token = req.headers.authorization.split(" ")[0];
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const usrId = decodedToken._id;
+    const userParam  = req.params.id;
+    if(userParam ==! usrId) return res.status(400).send('Utilisateur erroné');
 
     // Find the ID of the sauce we want to delete
     Post.findOne({
